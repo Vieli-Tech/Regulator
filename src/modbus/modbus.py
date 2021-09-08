@@ -22,6 +22,7 @@ class ModBus(Tool):
         self.order: str = None
         self.orders = [
             'big-little',
+            'big-big',
             'little-big'
         ]
         self.menus = {
@@ -50,6 +51,9 @@ class ModBus(Tool):
                 if self.order == 'big-little':
                     byteorder = Endian.Big
                     wordorder = Endian.Little
+                elif self.order == 'big-big':
+                    byteorder = Endian.Big
+                    wordorder = Endian.Big
                 else:
                     byteorder = Endian.Little
                     wordorder = Endian.Big
@@ -83,9 +87,12 @@ class ModBus(Tool):
             byteorder = None
             wordorder = None
             if connection.is_socket_open():
-                if self.type == 'big-little':
+                if self.order == 'big-little':
                     byteorder = Endian.Big
                     wordorder = Endian.Little
+                elif self.order == 'big-big':
+                    byteorder = Endian.Big
+                    wordorder = Endian.Big
                 else:
                     byteorder = Endian.Little
                     wordorder = Endian.Big
