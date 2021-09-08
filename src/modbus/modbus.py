@@ -47,6 +47,7 @@ class ModBus(Tool):
             connection = ModBusTCPSyncClient(self.ip, self.port)
             byteorder = None
             wordorder = None
+            connection.connect()
             if connection.is_socket_open():
                 if self.order == 'big-little':
                     byteorder = Endian.Big
@@ -61,7 +62,7 @@ class ModBus(Tool):
                     value = connection.read_coils(
                         self.register, unit=1).bits[0]
                 elif self.type == 'float32':
-                    BinaryPayloadDecoder.fromRegisters(
+                    value = BinaryPayloadDecoder.fromRegisters(
                         connection.read_holding_registers(
                             self.register, 2, unit=1
                         ).registers,
@@ -74,6 +75,7 @@ class ModBus(Tool):
             print('Erro: ', e)
             print(traceback.format_exc())
         finally:
+            connection.close()
             input('Pressione Enter para continuar')
 
     def write(self):
@@ -86,6 +88,7 @@ class ModBus(Tool):
             connection = ModBusTCPSyncClient(self.ip, self.port)
             byteorder = None
             wordorder = None
+            connection.connect()
             if connection.is_socket_open():
                 if self.order == 'big-little':
                     byteorder = Endian.Big
@@ -109,6 +112,7 @@ class ModBus(Tool):
             print('Erro: ', e)
             print(traceback.format_exc())
         finally:
+            connection.close()
             input('Pressione Enter para continuar')
 
     def run(self):
