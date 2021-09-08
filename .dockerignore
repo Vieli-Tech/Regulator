@@ -1,0 +1,18 @@
+# Ignore the venv
+venv/
+
+# Ignore the dbs
+*.shelve
+equipamento.shelve
+data/equipamento.shelve
+
+# Ignore the git
+.git
+
+# Ignore the pytest
+.pytest_cache
+
+# Ignore the vscode configs
+.vscode
+
+.env
