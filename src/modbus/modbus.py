@@ -17,7 +17,8 @@ class ModBus(Tool):
         self.type: str = None
         self.types = [
             'coil',
-            'float32'
+            'float32',
+            'int'
         ]
         self.order: str = None
         self.orders = [
@@ -68,6 +69,10 @@ class ModBus(Tool):
                         ).registers,
                         byteorder=byteorder, wordorder=wordorder
                     ).decode_32bit_float()
+                elif self.type == 'int':
+                    value = int(connection.read_holding_registers(
+                        self.register, 2, unit=1
+                    ).getRegister(0))
                 print('Lido valor: ', value)
             else:
                 print('Não foi possível se conectar para realizar a leitura')
@@ -83,8 +88,10 @@ class ModBus(Tool):
             value = input('Informe um valor a ser gravado: ')
             if self.type == 'coil':
                 value = int(value)
-            else:
+            elif self.type == 'float32':
                 value = float(value)
+            elif self.type == 'int':
+                value = int(value)
             connection = ModBusTCPSyncClient(self.ip, self.port)
             byteorder = None
             wordorder = None
@@ -105,6 +112,8 @@ class ModBus(Tool):
                     builder = BinaryPayloadBuilder(byteorder=byteorder, wordorder=wordorder)
                     builder.add_32bit_float(value)
                     connection.write_registers(self.register, builder.to_registers(), unit=1)
+                elif self.type == 'int':
+                    connection.write_registers(self.register, value, unit=1)
                 print('Valor gravado!')
             else:
                 print('Não foi possível se conectar para realizar a leitura')
