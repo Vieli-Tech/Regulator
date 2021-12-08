@@ -29,6 +29,7 @@ class Tool():
                 else:
                     print('Informe uma opção válida!')
             else:
+                informed = value
                 valid = True
         return informed
 
