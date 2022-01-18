@@ -16,11 +16,18 @@ class Main():
 
     def menu(self):
         print('Informe uma ferramenta:')
-        for option in self.options.keys():
-            print('\t* ', option)
+        for index, option in enumerate(self.options.keys()):
+            print('\t* {} - {}'.format(index, option))
         if self.last_tool is not None:
             print('Última ferramenta: \n\t* last')
         choosen = input('Opção: ')
+        length = len(self.options.keys())
+        try:
+            index = int(choosen)
+            if index > -1 and index < length:
+                choosen = list(self.options.keys())[index]
+        except ValueError:
+            pass
         if choosen in self.options.keys():
             self.tool = self.options[choosen]()
             self.last_tool = self.tool
