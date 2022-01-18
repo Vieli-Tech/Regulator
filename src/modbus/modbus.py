@@ -144,10 +144,17 @@ class ModBus(Tool):
                 self.order
             ))
             print('\nInforme uma opção:')
-            for menu in self.menus.keys():
-                print('\t* ', menu)
+            for index, menu in enumerate(self.menus.keys()):
+                print('\t* {} - {}'.format(index, menu))
             print('* Ou qualquer outra coisa para sair')
             choosen = input('Opção: ')
+            length = len(self.menus.keys())
+            try:
+                index = int(choosen)
+                if index > -1 and index < length:
+                    choosen = list(self.menus.keys())[index]
+            except ValueError:
+                pass
             if choosen in self.menus.keys():
                 self.menus[choosen]()
             else:

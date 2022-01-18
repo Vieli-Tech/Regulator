@@ -3,6 +3,7 @@ import traceback
 from src.tool import Tool
 
 from src.modbus import ModBus
+from src.mnemonic2postgres import Mnemonic2Postgres
 
 
 class Main():
@@ -11,7 +12,8 @@ class Main():
         self.tool: Tool = None
         self.last_tool: Tool = None
         self.options = {
-            'modbus': ModBus
+            'modbus': ModBus,
+            'Mnemonic2Postgres': Mnemonic2Postgres
         }
 
     def menu(self):

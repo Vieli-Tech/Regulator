@@ -1,0 +1,1 @@
+from src.mnemonic2postgres.mnmonic2postgres import Mnemonic2Postgres
