@@ -1,1 +1,3 @@
 pymodbus
+cassandra-driver
+postgres
