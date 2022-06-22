@@ -15,5 +15,6 @@ CREATE TABLE IF NOT EXISTS producao.producao(
   hash_produzidos bigint,
   hash_retrabalhos bigint,
   id_octopus text,
-  desconsiderada boolean
+  desconsiderada boolean,
+  meta float
 );
